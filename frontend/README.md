@@ -40,6 +40,22 @@ export GATEWAY_URL=http://localhost:8000
 streamlit run app.py --server.port 8501
 ```
 
+## Run With Docker
+
+1. Build the image:
+
+```bash
+docker build -t listen-ai-frontend .
+```
+
+2. Run the container:
+
+```bash
+docker run -p 8501:8501 --env GATEWAY_URL=http://host.docker.internal:8000 listen-ai-frontend
+```
+
+Note: Use `http://host.docker.internal:8000` if the gateway is running on your host machine (macOS/Windows).
+
 ## Access
 
 - UI: `http://localhost:8501`

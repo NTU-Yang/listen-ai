@@ -48,8 +48,31 @@ From project root:
 task up
 ```
 
+## Run with Docker Compose
+
+Ensure you have [Docker](https://www.docker.com/) installed.
+
+1. Build and start all services:
+
+```bash
+docker compose up --build
+```
+
+2. Access the services:
+   - Dashboard: `http://localhost:8501`
+   - Gateway: `http://localhost:8000`
+   - NLP Service: `http://localhost:8001`
+   - Stat Service: `http://localhost:8002`
+
+3. Stop the services:
+
+```bash
+docker compose down
+```
+
 Notes:
 
+- The database is persisted in `./data/listenai.db` via a volume mount.
 - `task up` runs a cleanup step first, then starts `stat`, `nlp`, `gateway`, and `frontend` together.
 - If `task` is not installed, install go-task first:
 

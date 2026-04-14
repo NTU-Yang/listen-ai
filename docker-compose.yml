@@ -1,0 +1,59 @@
+services:
+  stat:
+    build:
+      context: ./stat
+    ports:
+      - "8002:8002"
+    environment:
+      - STAT_PORT=8002
+      - SQLITE_PATH=/data/listenai.db
+    volumes:
+      - listenai-db:/data
+    networks:
+      - listen-ai-network
+
+  nlp:
+    build:
+      context: ./nlp
+    ports:
+      - "8001:8001"
+    environment:
+      - NLP_PORT=8001
+    networks:
+      - listen-ai-network
+
+  gateway:
+    build:
+      context: ./gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - STAT_URL=http://stat:8002
+      - NLP_URL=http://nlp:8001
+      - GATEWAY_PORT=8000
+    depends_on:
+      - stat
+      - nlp
+    networks:
+      - listen-ai-network
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "8501:8501"
+    environment:
+      - GATEWAY_URL=http://gateway:8000
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+    depends_on:
+      - gateway
+    networks:
+      - listen-ai-network
+
+volumes:
+  listenai-db:
+
+networks:
+  listen-ai-network:
+    driver: bridge

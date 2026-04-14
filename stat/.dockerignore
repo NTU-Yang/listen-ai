@@ -1,0 +1,17 @@
+# Go build artifacts
+stat-service
+bin/
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+
+# DB files
+*.db
+*.db-journal
+*.db-wal

@@ -39,6 +39,20 @@ export NLP_PORT=8001
 uvicorn app:app --host 0.0.0.0 --port ${NLP_PORT:-8001}
 ```
 
+## Run With Docker
+
+1. Build the image:
+
+```bash
+docker build -t listen-ai-nlp .
+```
+
+2. Run the container:
+
+```bash
+docker run -p 8001:8001 listen-ai-nlp
+```
+
 ## Health Check
 
 ```bash

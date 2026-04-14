@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"regexp"
 	"sort"
 	"strings"
@@ -316,6 +317,13 @@ func main() {
 	sqlitePath := os.Getenv("SQLITE_PATH")
 	if sqlitePath == "" {
 		sqlitePath = "./listenai.db"
+	}
+
+	// Ensure the directory for the database exists
+	if dir := filepath.Dir(sqlitePath); dir != "." {
+		if err := os.MkdirAll(dir, 0755); err != nil {
+			log.Fatalf("failed to create database directory: %v", err)
+		}
 	}
 
 	db, err := sql.Open("sqlite", sqlitePath)

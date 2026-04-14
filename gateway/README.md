@@ -43,6 +43,25 @@ You can edit `.env` if needed:
 npm run dev
 ```
 
+## Run With Docker
+
+1. Build the image:
+
+```bash
+docker build -t listen-ai-gateway .
+```
+
+2. Run the container:
+
+```bash
+docker run -p 8000:8000 \
+  --env STAT_URL=http://host.docker.internal:8002 \
+  --env NLP_URL=http://host.docker.internal:8001 \
+  listen-ai-gateway
+```
+
+Note: Use `http://host.docker.internal` if the other services are running on your host machine (macOS/Windows).
+
 ## Health Check
 
 ```bash

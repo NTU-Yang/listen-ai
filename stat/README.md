@@ -38,6 +38,26 @@ export SQLITE_PATH=./listenai.db
 go run .
 ```
 
+## Run With Docker
+
+1. Build the image:
+
+```bash
+docker build -t listen-ai-stat .
+```
+
+2. Run the container:
+
+```bash
+# To persist data, mount a volume for the database
+docker run -p 8002:8002 \
+  -v $(pwd)/../data:/data \
+  -e SQLITE_PATH=/data/listenai.db \
+  listen-ai-stat
+```
+
+Note: If you don't mount a volume, the database will be created in `/data/listenai.db` inside the container but will be lost when the container is removed.
+
 ## Health Check
 
 ```bash
